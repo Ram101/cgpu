@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.datetime "updated_at"
   end
 
-  add_index "company_attendings", ["companyvisit_id", "student_id"], name: "index_company_attendings_on_companyvisit_id_and_student_id", unique: true
-  add_index "company_attendings", ["companyvisit_id"], name: "index_company_attendings_on_companyvisit_id"
-  add_index "company_attendings", ["student_id"], name: "index_company_attendings_on_student_id"
+  add_index "company_attendings", ["companyvisit_id", "student_id"], name: "index_company_attendings_on_companyvisit_id_and_student_id", unique: true, using: :btree
+  add_index "company_attendings", ["companyvisit_id"], name: "index_company_attendings_on_companyvisit_id", using: :btree
+  add_index "company_attendings", ["student_id"], name: "index_company_attendings_on_student_id", using: :btree
 
   create_table "companyvisits", force: true do |t|
     t.integer  "company_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.string   "jnf"
   end
 
-  add_index "companyvisits", ["company_id"], name: "index_companyvisits_on_company_id"
+  add_index "companyvisits", ["company_id"], name: "index_companyvisits_on_company_id", using: :btree
 
   create_table "placements", force: true do |t|
     t.integer  "student_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.datetime "updated_at"
   end
 
-  add_index "placements", ["company_id"], name: "index_placements_on_company_id"
-  add_index "placements", ["student_id"], name: "index_placements_on_student_id"
+  add_index "placements", ["company_id"], name: "index_placements_on_company_id", using: :btree
+  add_index "placements", ["student_id"], name: "index_placements_on_student_id", using: :btree
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -60,12 +60,12 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      limit: 2
-    t.integer  "year",       limit: 5
+    t.integer  "year",       limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.datetime "updated_at"
   end
 
-  add_index "student_trainings", ["student_id"], name: "index_student_trainings_on_student_id"
-  add_index "student_trainings", ["training_id"], name: "index_student_trainings_on_training_id"
+  add_index "student_trainings", ["student_id"], name: "index_student_trainings_on_student_id", using: :btree
+  add_index "student_trainings", ["training_id"], name: "index_student_trainings_on_training_id", using: :btree
 
   create_table "students", force: true do |t|
     t.integer  "user_id"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.boolean  "is_placed",          default: false
   end
 
-  add_index "students", ["user_id"], name: "index_students_on_user_id"
+  add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
 
   create_table "trainings", force: true do |t|
     t.string   "conducted_by"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20131209084014) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
