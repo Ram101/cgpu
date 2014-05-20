@@ -18,23 +18,22 @@
 	<table class="table" id="dtables">
 	  <thead>
 	  	
-	  		<td><button type="button" id="check_all">Select All</button></td><td>Name</td><td>Department</td><td>CGPA</td><td>Advisor Approved</td><td>Placement</td>
+	  		<td><button type="button" id="check_all">Select All</button></td><td>Name</td><td>Department</td><td>CGPA</td><td>Placement</td>
 	
 	  </thead>
 	  <tbody>
 	  	<% @students.each do |student| %>
-	  	       <tr >
-	  	         <td><%= check_box_tag 'student_ids[]', student.id %></td>	  	    
+	  	  <% if student.adv_approved %>
+		  	  <tr >
+		  	  <td><%= check_box_tag 'student_ids[]', student.id %></td>
+		  	<% elsif %>
+		  	  <tr class = "error">
+		  	  <td><%= check_box_tag 'student_ids[]', student.id, false, disabled: true %></td>
+	  	<% end %>
+	  	    
 	  	  	<td><%= link_to student.name, url_for(student), :target => '_blank' %></td>
 	  	  	<td> <%= student.dept %></td>
 	  	  	<td> <%= student.ug_cgpa %></td>
-	  	 <% if student.adv_approved %>
-		  	
-		  	  <td><i class="icon-ok-sign"></td>
-		  <% elsif %>
-		  	  <td><i class=" icon-ban-circle"></td>
-	  	<% end %>
-	  	
             <% if student.companys.exists? %>
              <td><i class="icon-ok-sign"></i></td>
             <% else %>
